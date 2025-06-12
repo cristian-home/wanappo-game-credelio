@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n'
  * Handles browser detection, localStorage persistence, and language switching
  */
 export function useLanguage() {
-  const { locale, availableLocales } = useI18n()
+  const { locale } = useI18n()
   const currentLanguage = ref(locale.value)
 
   // Supported languages
