@@ -2,9 +2,12 @@
 import { onMounted, onUnmounted, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
+import { useI18n } from 'vue-i18n'
+import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 
 const router = useRouter()
 const gameStore = useGameStore()
+const { t } = useI18n()
 
 let gameTimer: number | null = null
 
@@ -127,20 +130,25 @@ onUnmounted(() => {
 
 <template>
   <div class="min-h-screen bg-gray-100 p-4">
+    <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 z-20">
+      <LanguageSwitcher />
+    </div>
+
     <!-- Game Header -->
     <div class="bg-white rounded-lg shadow-md p-4 mb-4">
       <div class="flex justify-between items-center">
         <div class="flex space-x-6">
           <div class="text-center">
-            <div class="text-sm text-gray-500">Level</div>
+            <div class="text-sm text-gray-500">{{ t('stats.level') }}</div>
             <div class="text-2xl font-bold text-blue-600">{{ gameStore.currentLevel }}</div>
           </div>
           <div class="text-center">
-            <div class="text-sm text-gray-500">Score</div>
+            <div class="text-sm text-gray-500">{{ t('stats.score') }}</div>
             <div class="text-2xl font-bold text-green-600">{{ gameStore.score }}</div>
           </div>
           <div class="text-center">
-            <div class="text-sm text-gray-500">Time Left</div>
+            <div class="text-sm text-gray-500">{{ t('stats.time') }}</div>
             <div
               class="text-2xl font-bold"
               :class="gameStore.timeLeft <= 10 ? 'text-red-600' : 'text-orange-600'"
@@ -149,7 +157,7 @@ onUnmounted(() => {
             </div>
           </div>
           <div class="text-center">
-            <div class="text-sm text-gray-500">Bugs Left</div>
+            <div class="text-sm text-gray-500">{{ t('stats.bugsLeft') }}</div>
             <div class="text-2xl font-bold text-purple-600">{{ gameStore.bugsRemaining }}</div>
           </div>
         </div>
@@ -160,13 +168,13 @@ onUnmounted(() => {
             :disabled="!gameStore.isPlaying"
             class="bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded transition-colors"
           >
-            {{ gameStore.isPaused ? 'Resume' : 'Pause' }}
+            {{ gameStore.isPaused ? t('game.resume') : t('game.pause') }}
           </button>
           <button
             @click="goHome"
             class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors"
           >
-            Quit
+            {{ t('game.quit') }}
           </button>
         </div>
       </div>
@@ -179,7 +187,7 @@ onUnmounted(() => {
         v-if="gameStore.isPaused"
         class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10"
       >
-        <div class="text-white text-6xl font-bold">PAUSED</div>
+        <div class="text-white text-6xl font-bold">{{ t('game.paused') }}</div>
       </div>
 
       <!-- Bugs -->
@@ -199,7 +207,7 @@ onUnmounted(() => {
         v-if="gameStore.bugs.length === 0 && gameStore.isPlaying"
         class="absolute inset-0 flex items-center justify-center"
       >
-        <div class="text-gray-500 text-xl">Loading bugs...</div>
+        <div class="text-gray-500 text-xl">{{ t('game.loadingBugs') }}</div>
       </div>
 
       <div
@@ -207,9 +215,9 @@ onUnmounted(() => {
         class="absolute inset-0 flex items-center justify-center"
       >
         <div class="text-center">
-          <div class="text-4xl text-gray-600 mb-4">Get Ready!</div>
+          <div class="text-4xl text-gray-600 mb-4">{{ t('game.getReady') }}</div>
           <div class="text-lg text-gray-500">
-            Level {{ gameStore.currentLevel }} starting soon...
+            {{ t('instructions.levelStarting', { level: gameStore.currentLevel }) }}
           </div>
         </div>
       </div>
@@ -218,7 +226,8 @@ onUnmounted(() => {
     <!-- Level Progress -->
     <div class="mt-4 bg-white rounded-lg shadow-md p-4">
       <div class="text-sm text-gray-500 mb-2">
-        Progress: Level {{ gameStore.currentLevel }} / {{ gameStore.maxLevel }}
+        {{ t('stats.progress') }}: {{ t('stats.level') }} {{ gameStore.currentLevel }} /
+        {{ gameStore.maxLevel }}
       </div>
       <div class="w-full bg-gray-200 rounded-full h-2">
         <div
