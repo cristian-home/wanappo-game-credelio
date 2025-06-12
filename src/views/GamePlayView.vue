@@ -10,6 +10,8 @@ const gameStore = useGameStore()
 const { t } = useI18n()
 
 let gameTimer: number | null = null
+let animationFrameId: number | null = null
+let lastMovementUpdate = 0
 
 const startGameTimer = () => {
   gameTimer = setInterval(() => {
@@ -21,6 +23,35 @@ const stopGameTimer = () => {
   if (gameTimer) {
     clearInterval(gameTimer)
     gameTimer = null
+  }
+}
+
+const startMovementTimer = () => {
+  const gameArea = document.querySelector(
+    '.bg-white.rounded-lg.shadow-md.relative.overflow-hidden',
+  ) as HTMLElement
+  const gameAreaWidth = gameArea?.clientWidth || 800
+  const gameAreaHeight = gameArea?.clientHeight || 600
+
+  const animate = (currentTime: number) => {
+    if (currentTime - lastMovementUpdate >= 30) {
+      // Update every 30ms for smoother movement
+      gameStore.updateBugPositions(gameAreaWidth, gameAreaHeight)
+      lastMovementUpdate = currentTime
+    }
+
+    if (gameStore.isPlaying && !gameStore.isPaused) {
+      animationFrameId = requestAnimationFrame(animate)
+    }
+  }
+
+  animationFrameId = requestAnimationFrame(animate)
+}
+
+const stopMovementTimer = () => {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = null
   }
 }
 
@@ -65,8 +96,10 @@ watch(
   (isPlaying) => {
     if (isPlaying && !gameStore.isPaused) {
       startGameTimer()
+      startMovementTimer()
     } else {
       stopGameTimer()
+      stopMovementTimer()
     }
   },
 )
@@ -76,8 +109,10 @@ watch(
   (isPaused) => {
     if (isPaused) {
       stopGameTimer()
+      stopMovementTimer()
     } else if (gameStore.isPlaying) {
       startGameTimer()
+      startMovementTimer()
     }
   },
 )
@@ -111,6 +146,7 @@ onMounted(() => {
   // Start timer if game is active and not paused
   if (gameStore.isPlaying && !gameStore.isPaused) {
     startGameTimer()
+    startMovementTimer()
   }
 })
 
@@ -125,6 +161,7 @@ onBeforeRouteLeave((to, from, next) => {
 
 onUnmounted(() => {
   stopGameTimer()
+  stopMovementTimer()
 })
 </script>
 
@@ -196,10 +233,14 @@ onUnmounted(() => {
         :key="bug.id"
         v-show="bug.isAlive"
         @click="handleBugClick(bug.id)"
-        class="absolute w-8 h-8 bg-red-500 rounded-full cursor-pointer hover:bg-red-600 transition-colors flex items-center justify-center text-white font-bold"
-        :style="{ left: bug.x + 'px', top: bug.y + 'px' }"
+        class="absolute w-8 h-8 bg-green-500 rounded-full cursor-pointer hover:bg-green-600 hover:scale-110 transition-all duration-100 ease-out flex items-center justify-center text-white font-bold shadow-md"
+        :style="{
+          left: bug.x + 'px',
+          top: bug.y + 'px',
+          transform: `rotate(${(Math.atan2(bug.velocityY, bug.velocityX) * 180) / Math.PI}deg)`,
+        }"
       >
-        🐛
+        🐜
       </div>
 
       <!-- Game Instructions -->

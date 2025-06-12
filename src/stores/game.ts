@@ -7,6 +7,10 @@ export interface Bug {
   y: number
   speed: number
   isAlive: boolean
+  velocityX: number
+  velocityY: number
+  targetX: number
+  targetY: number
 }
 
 export interface GameState {
@@ -36,8 +40,8 @@ export const useGameStore = defineStore(
     // Game configuration
     const maxLevel = ref(10)
     const baseTimeLimit = ref(30) // seconds
-    const baseBugCount = ref(3)
-    const baseSpeed = ref(1)
+    const baseBugCount = ref(5)
+    const baseSpeed = ref(2) // Increased from 1 to 2 for more noticeable movement
 
     // Computed properties
     const bugsRemaining = computed(() => bugs.value.filter((bug) => bug.isAlive).length)
@@ -50,7 +54,7 @@ export const useGameStore = defineStore(
       () => baseBugCount.value + Math.floor((currentLevel.value - 1) / 2),
     )
 
-    const levelSpeed = computed(() => baseSpeed.value + (currentLevel.value - 1) * 0.3)
+    const levelSpeed = computed(() => baseSpeed.value + (currentLevel.value - 1) * 0.8)
 
     const isLevelComplete = computed(() => bugsRemaining.value === 0 && isPlaying.value)
 
@@ -73,12 +77,20 @@ export const useGameStore = defineStore(
     const generateBugs = () => {
       bugs.value = []
       for (let i = 0; i < levelBugCount.value; i++) {
+        const x = Math.random() * 768 // Leave some margin from edges (800 - 32)
+        const y = Math.random() * 568 // Leave some margin from edges (600 - 32)
+        // Each bug has slightly different speed for variety
+        const bugSpeed = levelSpeed.value * (0.7 + Math.random() * 0.6) // Speed between 0.7x and 1.3x
         bugs.value.push({
           id: `bug-${currentLevel.value}-${i}`,
-          x: Math.random() * 800, // Will be adjusted based on screen size
-          y: Math.random() * 600,
-          speed: levelSpeed.value,
+          x,
+          y,
+          speed: bugSpeed,
           isAlive: true,
+          velocityX: (Math.random() - 0.5) * 4, // Random direction between -2 and 2
+          velocityY: (Math.random() - 0.5) * 4,
+          targetX: Math.random() * 768,
+          targetY: Math.random() * 568,
         })
       }
     }
@@ -143,6 +155,67 @@ export const useGameStore = defineStore(
       }
     }
 
+    const updateBugPositions = (gameAreaWidth: number = 800, gameAreaHeight: number = 600) => {
+      if (!isPlaying.value || isPaused.value) return
+
+      bugs.value.forEach((bug) => {
+        if (!bug.isAlive) return
+
+        // Move bug towards target or create new target
+        const distanceToTarget = Math.sqrt(
+          Math.pow(bug.targetX - bug.x, 2) + Math.pow(bug.targetY - bug.y, 2),
+        )
+
+        // If close to target or no target, set new random target
+        if (distanceToTarget < 20 || (bug.targetX === bug.x && bug.targetY === bug.y)) {
+          bug.targetX = Math.random() * (gameAreaWidth - 32) // Account for bug size
+          bug.targetY = Math.random() * (gameAreaHeight - 32)
+        }
+
+        // Calculate direction to target
+        const directionX = bug.targetX - bug.x
+        const directionY = bug.targetY - bug.y
+        const distance = Math.sqrt(directionX * directionX + directionY * directionY)
+
+        if (distance > 0) {
+          // Normalize direction and apply speed with some randomness
+          const speedMultiplier = 0.8 + Math.random() * 0.4 // Random speed between 0.8x and 1.2x
+          bug.velocityX = (directionX / distance) * bug.speed * speedMultiplier
+          bug.velocityY = (directionY / distance) * bug.speed * speedMultiplier
+
+          // Add some random jitter to make movement more erratic
+          bug.velocityX += (Math.random() - 0.5) * 0.5
+          bug.velocityY += (Math.random() - 0.5) * 0.5
+        }
+
+        // Update position
+        bug.x += bug.velocityX
+        bug.y += bug.velocityY
+
+        // Keep bugs within bounds and bounce off walls
+        if (bug.x < 0) {
+          bug.x = 0
+          bug.velocityX = Math.abs(bug.velocityX)
+          bug.targetX = Math.random() * (gameAreaWidth - 32)
+        }
+        if (bug.x > gameAreaWidth - 32) {
+          bug.x = gameAreaWidth - 32
+          bug.velocityX = -Math.abs(bug.velocityX)
+          bug.targetX = Math.random() * (gameAreaWidth - 32)
+        }
+        if (bug.y < 0) {
+          bug.y = 0
+          bug.velocityY = Math.abs(bug.velocityY)
+          bug.targetY = Math.random() * (gameAreaHeight - 32)
+        }
+        if (bug.y > gameAreaHeight - 32) {
+          bug.y = gameAreaHeight - 32
+          bug.velocityY = -Math.abs(bug.velocityY)
+          bug.targetY = Math.random() * (gameAreaHeight - 32)
+        }
+      })
+    }
+
     return {
       // State
       currentLevel,
@@ -172,6 +245,7 @@ export const useGameStore = defineStore(
       pauseGame,
       resetGame,
       updateTimer,
+      updateBugPositions,
     }
   },
   {
