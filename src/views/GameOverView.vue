@@ -2,8 +2,8 @@
 
 <template>
   <main>
-    <h1>Home View</h1>
-    <p>This is the home view of your application.</p>
+    <h1>Game Over View</h1>
+    <p>This is the game over view of your application.</p>
   </main>
 </template>
 
