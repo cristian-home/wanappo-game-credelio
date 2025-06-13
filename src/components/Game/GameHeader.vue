@@ -17,8 +17,8 @@ const handleGoHome = () => {
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-    <div class="flex justify-between items-center">
+  <div class="header-panel mb-4">
+    <div class="flex items-center justify-between">
       <GameStats />
       <GameControls @toggle-pause="handleTogglePause" @go-home="handleGoHome" />
     </div>

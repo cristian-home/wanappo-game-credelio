@@ -20,17 +20,23 @@ const handleGoHome = () => {
 </script>
 
 <template>
-  <div class="flex space-x-2">
+  <div class="flex space-x-3">
     <button
       @click="handleTogglePause"
       :disabled="!gameStore.isPlaying"
-      class="bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded transition-colors"
+      :class="[
+        'control-btn',
+        {
+          'active border-yellow-500 bg-yellow-500 text-white': gameStore.isPaused,
+          'hover:border-yellow-400 hover:bg-yellow-100': !gameStore.isPaused && gameStore.isPlaying,
+        },
+      ]"
     >
       {{ gameStore.isPaused ? t('game.resume') : t('game.pause') }}
     </button>
     <button
       @click="handleGoHome"
-      class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors"
+      class="control-btn hover:border-red-400 hover:bg-red-100 hover:text-red-700"
     >
       {{ t('game.quit') }}
     </button>

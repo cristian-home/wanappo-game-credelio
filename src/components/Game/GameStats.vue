@@ -7,27 +7,27 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex space-x-6">
-    <div class="text-center">
-      <div class="text-sm text-gray-500">{{ t('stats.level') }}</div>
-      <div class="text-2xl font-bold text-blue-600">{{ gameStore.currentLevel }}</div>
+  <div class="flex space-x-4">
+    <div class="stats-item">
+      <div class="stats-label">{{ t('stats.level') }}</div>
+      <div class="stats-value">{{ gameStore.currentLevel }}</div>
     </div>
-    <div class="text-center">
-      <div class="text-sm text-gray-500">{{ t('stats.score') }}</div>
-      <div class="text-2xl font-bold text-green-600">{{ gameStore.score }}</div>
+    <div class="stats-item">
+      <div class="stats-label">{{ t('stats.score') }}</div>
+      <div class="stats-value">{{ gameStore.score }}</div>
     </div>
-    <div class="text-center">
-      <div class="text-sm text-gray-500">{{ t('stats.time') }}</div>
+    <div class="stats-item">
+      <div class="stats-label">{{ t('stats.time') }}</div>
       <div
-        class="text-2xl font-bold"
-        :class="gameStore.timeLeft <= 10 ? 'text-red-600' : 'text-orange-600'"
+        class="stats-value"
+        :class="gameStore.timeLeft <= 10 ? 'animate-pulse text-red-500' : 'text-orange-500'"
       >
         {{ gameStore.timeLeft }}s
       </div>
     </div>
-    <div class="text-center">
-      <div class="text-sm text-gray-500">{{ t('stats.bugsLeft') }}</div>
-      <div class="text-2xl font-bold text-purple-600">{{ gameStore.bugsRemaining }}</div>
+    <div class="stats-item">
+      <div class="stats-label">{{ t('stats.bugsLeft') }}</div>
+      <div class="stats-value text-purple-600">{{ gameStore.bugsRemaining }}</div>
     </div>
   </div>
 </template>

@@ -10,7 +10,7 @@ interface Language {
 export const useLanguageStore = defineStore(
   'language',
   () => {
-    const currentLanguage = ref('en')
+    const currentLanguage = ref('es')
 
     const supportedLanguages = ref<Language[]>([
       { code: 'en', name: 'English', flag: '🇺🇸' },

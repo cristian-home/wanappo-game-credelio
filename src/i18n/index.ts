@@ -5,7 +5,7 @@ import es from '../locales/es.json'
 // Default to English, store will handle setting the right language
 const i18n = createI18n({
   legacy: false, // Use Composition API mode
-  locale: 'en',
+  locale: 'es',
   fallbackLocale: 'en',
   globalInjection: true, // Enable global $t
   messages: {

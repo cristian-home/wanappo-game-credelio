@@ -40,11 +40,7 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    ref="gameBoardRef"
-    class="bg-white rounded-lg shadow-md relative overflow-hidden"
-    style="height: 600px"
-  >
+  <div ref="gameBoardRef" class="game-board" style="height: 600px">
     <GameOverlay />
 
     <!-- Bugs -->

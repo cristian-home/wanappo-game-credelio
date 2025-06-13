@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
 import { useI18n } from 'vue-i18n'
-import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
+// import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 
 const router = useRouter()
 const gameStore = useGameStore()
@@ -35,47 +35,41 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-red-50">
+  <div class="game-background flex min-h-screen items-center justify-center p-4">
     <!-- Language Switcher -->
-    <div class="absolute top-4 right-4">
+    <!-- <div class="absolute top-4 right-4 z-10">
       <LanguageSwitcher />
-    </div>
+    </div> -->
 
-    <div class="text-center max-w-md mx-auto p-8">
-      <div class="text-8xl mb-6">💀</div>
-      <h1 class="text-6xl font-bold text-red-600 mb-4">{{ t('game.gameOver') }}</h1>
-      <p class="text-xl text-gray-700 mb-6">{{ t('game.timeUp') }}</p>
+    <div class="game-card mx-auto max-w-md text-center">
+      <div class="mb-6 text-8xl">💀</div>
+      <h1 class="mb-4 text-6xl font-bold text-red-600">{{ t('game.gameOver') }}</h1>
+      <p class="mb-6 text-xl text-gray-700">{{ t('game.timeUp') }}</p>
 
-      <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ t('stats.finalStats') }}</h2>
-        <div class="space-y-2">
-          <div class="flex justify-between">
-            <span class="text-gray-600">{{ t('stats.levelReached') }}:</span>
-            <span class="font-bold text-blue-600">{{ gameStore.currentLevel }}</span>
+      <div class="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-6">
+        <h2 class="mb-4 text-2xl font-bold text-gray-800">{{ t('stats.finalStats') }}</h2>
+        <div class="space-y-3">
+          <div class="stats-item flex justify-between">
+            <span class="stats-label">{{ t('stats.levelReached') }}:</span>
+            <span class="stats-value text-blue-600">{{ gameStore.currentLevel }}</span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-600">{{ t('stats.finalScore') }}:</span>
-            <span class="font-bold text-green-600">{{ gameStore.score }}</span>
+          <div class="stats-item flex justify-between">
+            <span class="stats-label">{{ t('stats.finalScore') }}:</span>
+            <span class="stats-value text-green-600">{{ gameStore.score }}</span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-600">{{ t('stats.bugsRemaining') }}:</span>
-            <span class="font-bold text-red-600">{{ gameStore.bugsRemaining }}</span>
+          <div class="stats-item flex justify-between">
+            <span class="stats-label">{{ t('stats.bugsRemaining') }}:</span>
+            <span class="stats-value text-red-600">{{ gameStore.bugsRemaining }}</span>
           </div>
         </div>
       </div>
 
       <div class="space-y-4">
-        <button
-          @click="playAgain"
-          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors"
-        >
+        <button @click="playAgain" class="btn-primary w-full">
           {{ t('game.tryAgain') }}
         </button>
 
-        <button
-          @click="goHome"
-          class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors"
-        >
+        <button @click="goHome" class="btn-secondary w-full">
           {{ t('game.backToHome') }}
         </button>
       </div>

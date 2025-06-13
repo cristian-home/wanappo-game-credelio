@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
 import { useI18n } from 'vue-i18n'
-import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
+// import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 
 const router = useRouter()
 const gameStore = useGameStore()
@@ -15,33 +15,42 @@ const startNewGame = () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="text-center">
-      <!-- Language Switcher -->
-      <div class="absolute top-4 right-4">
-        <LanguageSwitcher />
-      </div>
+  <div class="game-background flex min-h-screen items-center justify-center p-4">
+    <!-- Floating bugs decoration -->
+    <div class="animate-float absolute top-10 left-10 text-4xl text-white">🦗</div>
+    <div class="animate-bounce-gentle absolute top-20 right-20 text-3xl text-white">🕷️</div>
+    <div class="animate-pulse-slow absolute bottom-20 left-20 text-3xl text-white">🐛</div>
+    <div class="animate-float absolute right-10 bottom-10 text-4xl text-white">🦟</div>
 
-      <h1 class="text-6xl font-bold text-gray-800 mb-4">{{ t('game.title') }}</h1>
-      <p class="text-xl text-gray-600 mb-8">{{ t('game.subtitle') }}</p>
+    <!-- Language Switcher -->
+    <!-- <div class="absolute top-4 right-4 z-10">
+      <LanguageSwitcher />
+    </div> -->
 
-      <div class="space-y-4">
+    <!-- Main Content -->
+    <div class="game-card w-full max-w-2xl text-center">
+      <h1 class="game-title mb-4">{{ t('game.title') }}</h1>
+      <p class="game-subtitle mb-8 text-gray-600">{{ t('game.subtitle') }}</p>
+
+      <div class="mb-8">
         <button
           @click="startNewGame"
-          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors"
+          class="btn-primary animate-bounce-gentle text-xl hover:animate-none"
         >
           {{ t('game.newGame') }}
         </button>
+      </div>
 
-        <div class="text-sm text-gray-500 max-w-md mx-auto">
-          <h3 class="font-semibold mb-2">{{ t('instructions.howToPlay') }}</h3>
-          <ul class="text-left space-y-1">
-            <li>• {{ t('instructions.clickBugs') }}</li>
-            <li>• {{ t('instructions.clearAllBugs') }}</li>
-            <li>• {{ t('instructions.levelProgression') }}</li>
-            <li>• {{ t('instructions.completeAllLevels', { maxLevel: gameStore.maxLevel }) }}</li>
-          </ul>
-        </div>
+      <div class="instructions-card">
+        <h3 class="instructions-title mb-4 text-xl">{{ t('instructions.howToPlay') }}</h3>
+        <ul class="instructions-list">
+          <li class="instructions-item">{{ t('instructions.clickBugs') }}</li>
+          <li class="instructions-item">{{ t('instructions.clearAllBugs') }}</li>
+          <li class="instructions-item">{{ t('instructions.levelProgression') }}</li>
+          <li class="instructions-item">
+            {{ t('instructions.completeAllLevels', { maxLevel: gameStore.maxLevel }) }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>

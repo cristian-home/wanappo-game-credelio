@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
-import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
+// import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 import GameHeader from '@/components/Game/GameHeader.vue'
 import GameBoard from '@/components/Game/GameBoard.vue'
 import GameProgress from '@/components/Game/GameProgress.vue'
@@ -167,11 +167,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 p-4">
+  <div class="game-background p-4">
     <!-- Language Switcher -->
-    <div class="absolute top-4 right-4 z-20">
+    <!-- <div class="absolute top-4 right-4 z-20">
       <LanguageSwitcher />
-    </div>
+    </div> -->
 
     <!-- Game Header -->
     <GameHeader @toggle-pause="togglePause" @go-home="goHome" />

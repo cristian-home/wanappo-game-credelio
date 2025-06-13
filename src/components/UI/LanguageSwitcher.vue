@@ -36,7 +36,7 @@ watch(
     <select
       :value="locale"
       @change="changeLanguage(($event.target as HTMLSelectElement).value)"
-      class="bg-white border border-gray-300 rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
     >
       <option v-for="lang in languageStore.supportedLanguages" :key="lang.code" :value="lang.code">
         {{ lang.flag }} {{ lang.name }}

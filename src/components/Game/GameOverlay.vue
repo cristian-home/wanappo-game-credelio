@@ -8,11 +8,11 @@ const { t } = useI18n()
 
 <template>
   <!-- Pause Overlay -->
-  <div
-    v-if="gameStore.isPaused"
-    class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10"
-  >
-    <div class="text-white text-6xl font-bold">{{ t('game.paused') }}</div>
+  <div v-if="gameStore.isPaused" class="game-overlay">
+    <div class="overlay-content">
+      <div class="text-primary-green mb-4 text-6xl font-bold">⏸️</div>
+      <div class="text-4xl font-bold text-gray-700">{{ t('game.paused') }}</div>
+    </div>
   </div>
 
   <!-- Loading Bugs Message -->
@@ -20,17 +20,15 @@ const { t } = useI18n()
     v-if="gameStore.bugs.length === 0 && gameStore.isPlaying"
     class="absolute inset-0 flex items-center justify-center"
   >
-    <div class="text-gray-500 text-xl">{{ t('game.loadingBugs') }}</div>
+    <div class="animate-pulse text-xl text-gray-500">{{ t('game.loadingBugs') }}</div>
   </div>
 
   <!-- Get Ready Message -->
-  <div
-    v-if="!gameStore.isPlaying && !gameStore.isPaused"
-    class="absolute inset-0 flex items-center justify-center"
-  >
-    <div class="text-center">
-      <div class="text-4xl text-gray-600 mb-4">{{ t('game.getReady') }}</div>
-      <div class="text-lg text-gray-500">
+  <div v-if="!gameStore.isPlaying && !gameStore.isPaused" class="game-overlay">
+    <div class="overlay-content">
+      <div class="text-primary-green mb-4 text-6xl font-bold">🎯</div>
+      <div class="mb-4 text-4xl font-bold text-gray-700">{{ t('game.getReady') }}</div>
+      <div class="text-lg text-gray-600">
         {{ t('instructions.levelStarting', { level: gameStore.currentLevel }) }}
       </div>
     </div>
