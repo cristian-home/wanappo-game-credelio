@@ -1,0 +1,54 @@
+{
+  "common": {
+    "language": "Idioma",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "¡Éxito!",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "close": "Cerrar"
+  },
+  "game": {
+    "title": "Bug Spike",
+    "subtitle": "¡Elimina todos los bugs antes de que se acabe el tiempo!",
+    "newGame": "Nuevo Juego",
+    "playAgain": "Jugar de Nuevo",
+    "tryAgain": "Intentar de Nuevo",
+    "backToHome": "Volver al Inicio",
+    "quit": "Salir",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "paused": "PAUSADO",
+    "gameOver": "Juego Terminado",
+    "victory": "¡Victoria!",
+    "getReady": "¡Prepárate!",
+    "loadingBugs": "Cargando bugs...",
+    "timeUp": "¡Se acabó el tiempo! Mejor suerte la próxima vez.",
+    "congratulations": "¡Felicitaciones! Has derrotado todos los bugs y completado los {maxLevel} niveles!",
+    "bugMaster": "¡Maestro de Bugs! 🏆",
+    "champion": "¡Eres un verdadero campeón de Bug Spike!",
+    "shareScore": "¡Comparte tu puntuación: {score} puntos!"
+  },
+  "stats": {
+    "level": "Nivel",
+    "score": "Puntuación",
+    "time": "Tiempo",
+    "bugsLeft": "Bugs Restantes",
+    "finalStats": "Estadísticas Finales",
+    "victoryStats": "Estadísticas de Victoria",
+    "levelReached": "Nivel Alcanzado",
+    "finalScore": "Puntuación Final",
+    "bugsRemaining": "Bugs Restantes",
+    "levelsCompleted": "Niveles Completados",
+    "status": "Estado",
+    "progress": "Progreso"
+  },
+  "instructions": {
+    "howToPlay": "Cómo Jugar:",
+    "clickBugs": "Haz clic en los bugs para eliminarlos",
+    "clearAllBugs": "Elimina todos los bugs antes de que se acabe el tiempo",
+    "levelProgression": "Cada nivel se vuelve más rápido y desafiante",
+    "completeAllLevels": "¡Completa los {maxLevel} niveles para ganar!",
+    "levelStarting": "El nivel {level} comenzará pronto..."
+  }
+}

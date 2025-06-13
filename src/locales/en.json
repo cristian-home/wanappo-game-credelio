@@ -1,0 +1,54 @@
+{
+  "common": {
+    "language": "Language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success!",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close"
+  },
+  "game": {
+    "title": "Bug Spike",
+    "subtitle": "Spike all the bugs before time runs out!",
+    "newGame": "New Game",
+    "playAgain": "Play Again",
+    "tryAgain": "Try Again",
+    "backToHome": "Back to Home",
+    "quit": "Quit",
+    "pause": "Pause",
+    "resume": "Resume",
+    "paused": "PAUSED",
+    "gameOver": "Game Over",
+    "victory": "Victory!",
+    "getReady": "Get Ready!",
+    "loadingBugs": "Loading bugs...",
+    "timeUp": "Time ran out! Better luck next time.",
+    "congratulations": "Congratulations! You've defeated all the bugs and completed all {maxLevel} levels!",
+    "bugMaster": "Bug Master! 🏆",
+    "champion": "You are a true Bug Spike champion!",
+    "shareScore": "Share your score: {score} points!"
+  },
+  "stats": {
+    "level": "Level",
+    "score": "Score",
+    "time": "Time",
+    "bugsLeft": "Bugs Left",
+    "finalStats": "Final Stats",
+    "victoryStats": "Victory Stats",
+    "levelReached": "Level Reached",
+    "finalScore": "Final Score",
+    "bugsRemaining": "Bugs Remaining",
+    "levelsCompleted": "Levels Completed",
+    "status": "Status",
+    "progress": "Progress"
+  },
+  "instructions": {
+    "howToPlay": "How to Play:",
+    "clickBugs": "Click on bugs to spike them",
+    "clearAllBugs": "Clear all bugs before time runs out",
+    "levelProgression": "Each level gets faster and more challenging",
+    "completeAllLevels": "Complete all {maxLevel} levels to win!",
+    "levelStarting": "Level {level} starting soon..."
+  }
+}
