@@ -29,7 +29,8 @@ const startNewGame = () => {
 
     <!-- Main Content -->
     <div class="game-card w-full max-w-2xl text-center">
-      <h1 class="game-title mb-4">{{ t('game.title') }}</h1>
+      <h1 class="game-title">{{ t('game.title') }}</h1>
+      <h1 class="game-title mb-4 text-3xl">CREDELIO</h1>
       <p class="game-subtitle mb-8 text-gray-600">{{ t('game.subtitle') }}</p>
 
       <div class="mb-8">
