@@ -1,1 +1,23 @@
 @import 'tailwindcss';
+
+@theme {
+  /* Color Palette */
+  --color-background: #006b2f;
+  --color-surface: #43b700;
+  --color-primary: #e6007e;
+  --color-accent: #ffd600;
+  --color-complementary: #f18626;
+  --color-surface-alt: #65b32e;
+  --color-border-alt: #0090d4;
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+@layer base {
+}
+
+@layer components {
+}
+
+@layer utilities {
+}
