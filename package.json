@@ -1,6 +1,6 @@
 {
   "name": "wanappo-game-credelio",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -48,6 +48,7 @@
     "prettier-plugin-tailwindcss": "^0.6.12",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
+    "vite-plugin-compression2": "^2.0.1",
     "vite-plugin-vue-devtools": "^7.7.6",
     "vitest": "^3.2.3",
     "vue-tsc": "^2.2.10"
