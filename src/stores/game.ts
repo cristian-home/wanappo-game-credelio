@@ -38,7 +38,7 @@ export const useGameStore = defineStore(
     const isPaused = ref(false)
 
     // Game configuration
-    const maxLevel = ref(10)
+    const maxLevel = ref(4)
     const baseTimeLimit = ref(30) // seconds
     const baseBugCount = ref(5)
     const baseSpeed = ref(2) // Increased from 1 to 2 for more noticeable movement

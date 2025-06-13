@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
+import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 import GameHeader from '@/components/Game/GameHeader.vue'
 import GameBoard from '@/components/Game/GameBoard.vue'
@@ -9,6 +10,7 @@ import GameProgress from '@/components/Game/GameProgress.vue'
 
 const router = useRouter()
 const gameStore = useGameStore()
+const { t } = useI18n()
 
 const gameBoardRef = ref<InstanceType<typeof GameBoard>>()
 let gameTimer: number | null = null
