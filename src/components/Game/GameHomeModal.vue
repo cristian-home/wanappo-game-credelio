@@ -52,8 +52,13 @@ const handleClick = () => {
         </li>
       </ul>
     </div>
-    <div class="-my-6 w-full text-center">
-      <button @click="handleClick" class="btn-primary translate-y-1/2 text-3xl font-extrabold">
+    <div
+      class="-my-6 w-full text-center"
+      v-motion
+      :initial="{ opacity: 0, y: 100 }"
+      :enter="{ opacity: 1, y: 0, transition: { delay: 1000, type: 'spring' } }"
+    >
+      <button class="btn-primary translate-y-1/2 text-3xl font-extrabold" @click="handleClick">
         {{ t('game.play') }}
       </button>
     </div>
