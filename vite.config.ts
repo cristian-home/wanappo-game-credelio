@@ -14,7 +14,11 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     tailwindcss(),
-    svgLoader(),
+    svgLoader({
+      svgoConfig: {
+        multipass: true,
+      },
+    }),
     compression({
       algorithms: ['gzip', 'brotliCompress'],
     }),

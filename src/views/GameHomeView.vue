@@ -36,6 +36,8 @@ const startNewGame = () => {
 
     <!-- Main Card -->
     <GameHomeModal @modal-button-click="startNewGame" />
+
+    <!-- Bottom Stripe -->
     <BottomStripe />
   </div>
 </template>

@@ -38,19 +38,21 @@ const handleClick = () => {
       <p>Actúa rápido. Credelio Plus las elimina antes de que piquen.</p>
     </div>
     <div
-      class="z-10 w-full max-w-lg rounded-lg bg-white p-4 text-center text-black inset-shadow-[0_0_10px_rgba(0,0,0,1)]"
+      class="z-10 w-full max-w-lg rounded-2xl bg-white p-4 text-center text-black inset-shadow-[0_0_10px_rgba(0,0,0,0.5)]"
     >
-      <h3 class="instructions-title mb-4 text-xl">{{ t('instructions.howToPlay') }}</h3>
-      <ul class="instructions-list text-left">
-        <li class="instructions-item">{{ t('instructions.clickBugs') }}</li>
-        <li class="instructions-item">{{ t('instructions.clearAllBugs') }}</li>
-        <li class="instructions-item">{{ t('instructions.levelProgression') }}</li>
-        <li class="instructions-item">
+      <h3 class="text-primary-green text-xl font-semibold">
+        {{ t('instructions.howToPlay') }}
+      </h3>
+      <ul class="list-none text-left">
+        <li class="before:pr-2 before:content-['🎯']">{{ t('instructions.clickBugs') }}</li>
+        <li class="before:pr-2 before:content-['🎯']">{{ t('instructions.clearAllBugs') }}</li>
+        <li class="before:pr-2 before:content-['🎯']">{{ t('instructions.levelProgression') }}</li>
+        <li class="before:pr-2 before:content-['🎯']">
           {{ t('instructions.completeAllLevels', { maxLevel: gameStore.maxLevel }) }}
         </li>
       </ul>
     </div>
-    <div class="-mb-6 w-full text-center">
+    <div class="-my-6 w-full text-center">
       <button @click="handleClick" class="btn-primary translate-y-1/2 text-3xl font-extrabold">
         {{ t('game.play') }}
       </button>
