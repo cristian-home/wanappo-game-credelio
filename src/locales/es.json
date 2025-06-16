@@ -9,8 +9,9 @@
     "close": "Cerrar"
   },
   "game": {
-    "title": "Bug Spike",
+    "title": "Pulgalaxia",
     "subtitle": "¡Elimina todos los bugs antes de que se acabe el tiempo!",
+    "play": "Jugar",
     "newGame": "Nuevo Juego",
     "playAgain": "Jugar de Nuevo",
     "tryAgain": "Intentar de Nuevo",

@@ -9,8 +9,9 @@
     "close": "Close"
   },
   "game": {
-    "title": "Bug Spike",
+    "title": "Pulgalaxia",
     "subtitle": "Spike all the bugs before time runs out!",
+    "play": "Play",
     "newGame": "New Game",
     "playAgain": "Play Again",
     "tryAgain": "Try Again",
