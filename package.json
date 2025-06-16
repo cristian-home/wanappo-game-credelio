@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
+    "@vueuse/core": "^13.3.0",
+    "@vueuse/motion": "^3.0.3",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.3.0",
     "tailwindcss": "^4.1.10",
