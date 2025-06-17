@@ -20,15 +20,15 @@ const handleGoHome = () => {
 </script>
 
 <template>
-  <div class="flex space-x-3">
+  <div class="flex gap-2">
     <button
       @click="handleTogglePause"
       :disabled="!gameStore.isPlaying"
       :class="[
-        'control-btn',
+        'btn-primary rounded-l-full rounded-r-none bg-yellow-700 px-4 py-2 text-sm font-semibold outline-6 hover:scale-100',
         {
-          'active border-yellow-500 bg-yellow-500 text-white': gameStore.isPaused,
-          'hover:border-yellow-400 hover:bg-yellow-100': !gameStore.isPaused && gameStore.isPlaying,
+          'active border-yellow-900 bg-yellow-500 text-white': gameStore.isPaused,
+          'hover:border-yellow-400 hover:bg-yellow-500': !gameStore.isPaused && gameStore.isPlaying,
         },
       ]"
     >
@@ -36,7 +36,7 @@ const handleGoHome = () => {
     </button>
     <button
       @click="handleGoHome"
-      class="control-btn hover:border-red-400 hover:bg-red-100 hover:text-red-700"
+      class="btn-primary rounded-l-none rounded-r-full bg-red-500 px-4 py-2 text-sm font-semibold outline-6 hover:scale-100 hover:border-red-400 hover:bg-red-100 hover:text-red-700"
     >
       {{ t('game.quit') }}
     </button>

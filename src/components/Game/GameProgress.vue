@@ -7,14 +7,13 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="header-panel mt-4">
-    <div class="mb-3 text-center text-sm font-medium text-gray-600">
-      {{ t('stats.progress') }}: {{ t('stats.level') }} {{ gameStore.currentLevel }} /
-      {{ gameStore.maxLevel }}
+  <div class="flex flex-row items-center justify-center gap-4">
+    <div class="text-sm font-medium text-white">
+      {{ t('stats.level') }} {{ gameStore.currentLevel }} / {{ gameStore.maxLevel }}
     </div>
-    <div class="progress-bar">
+    <div class="outline-yellow outiline-solid h-3 grow overflow-hidden rounded-full outline-4">
       <div
-        class="progress-fill"
+        class="progress-fill overflow-hidden"
         :style="{ width: (gameStore.currentLevel / gameStore.maxLevel) * 100 + '%' }"
       ></div>
     </div>
