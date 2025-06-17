@@ -7,27 +7,35 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex space-x-4">
-    <div class="stats-item">
-      <div class="stats-label">{{ t('stats.level') }}</div>
-      <div class="stats-value">{{ gameStore.currentLevel }}</div>
+  <div class="flex gap-6">
+    <div
+      class="outline-yellow flex flex-row items-center justify-center gap-2 rounded-2xl bg-white px-4 py-1 outline-8 outline-solid"
+    >
+      <div class="text-black">{{ t('stats.level') }}</div>
+      <div class="text-primary-green font-bold">{{ gameStore.currentLevel }}</div>
     </div>
-    <div class="stats-item">
-      <div class="stats-label">{{ t('stats.score') }}</div>
-      <div class="stats-value">{{ gameStore.score }}</div>
+    <div
+      class="outline-yellow flex flex-row items-center justify-center gap-2 rounded-2xl bg-white px-4 py-1 outline-8 outline-solid"
+    >
+      <div class="text-black">{{ t('stats.score') }}</div>
+      <div class="text-primary-green font-bold">{{ gameStore.score }}</div>
     </div>
-    <div class="stats-item">
-      <div class="stats-label">{{ t('stats.time') }}</div>
+    <div
+      class="outline-orange flex flex-row items-center justify-center gap-2 rounded-2xl bg-white px-4 py-1 outline-8 outline-solid"
+    >
+      <div class="text-black">{{ t('stats.time') }}</div>
       <div
-        class="stats-value"
-        :class="gameStore.timeLeft <= 10 ? 'animate-pulse text-red-500' : 'text-orange-500'"
+        class="font-bold"
+        :class="gameStore.timeLeft <= 10 ? 'animate-pulse text-red-500' : 'text-orange'"
       >
         {{ gameStore.timeLeft }}s
       </div>
     </div>
-    <div class="stats-item">
-      <div class="stats-label">{{ t('stats.bugsLeft') }}</div>
-      <div class="stats-value text-purple-600">{{ gameStore.bugsRemaining }}</div>
+    <div
+      class="outline-magenta flex flex-row items-center justify-center gap-2 rounded-2xl bg-white px-4 py-1 outline-8 outline-solid"
+    >
+      <div class="text-black">{{ t('stats.bugsLeft') }}</div>
+      <div class="text-magenta font-bold">{{ gameStore.bugsRemaining }}</div>
     </div>
   </div>
 </template>

@@ -2,7 +2,6 @@
 import { onMounted, onUnmounted, watch, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
-// import LanguageSwitcher from '@/components/UI/LanguageSwitcher.vue'
 import GameHeader from '@/components/Game/GameHeader.vue'
 import GameBoard from '@/components/Game/GameBoard.vue'
 import GameProgress from '@/components/Game/GameProgress.vue'
@@ -11,7 +10,7 @@ const router = useRouter()
 const gameStore = useGameStore()
 
 const gameBoardRef = ref<InstanceType<typeof GameBoard>>()
-let gameTimer: number | null = null
+let gameTimer: ReturnType<typeof setInterval> | null = null
 let animationFrameId: number | null = null
 let lastMovementUpdate = 0
 let gameAreaWidth = 800
@@ -167,19 +166,25 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="game-background p-4">
-    <!-- Language Switcher -->
-    <!-- <div class="absolute top-4 right-4 z-20">
-      <LanguageSwitcher />
-    </div> -->
-
+  <div
+    class="grid h-dvh w-screen grid-cols-3 gap-4 p-8"
+    style="grid-template-rows: auto repeat(4, 1fr)"
+  >
     <!-- Game Header -->
-    <GameHeader @toggle-pause="togglePause" @go-home="goHome" />
+    <div class="col-span-3 flex flex-col items-center justify-between gap-6">
+      <GameHeader class="w-full" @toggle-pause="togglePause" @go-home="goHome" />
+      <!-- Level Progress -->
+      <GameProgress class="w-full" />
+    </div>
 
     <!-- Game Area -->
-    <GameBoard ref="gameBoardRef" @bug-click="handleBugClick" @board-ready="handleBoardReady" />
-
-    <!-- Level Progress -->
-    <GameProgress />
+    <div class="col-span-3 row-span-4 row-start-2 w-full">
+      <GameBoard
+        class="relative h-full w-full"
+        ref="gameBoardRef"
+        @bug-click="handleBugClick"
+        @board-ready="handleBoardReady"
+      />
+    </div>
   </div>
 </template>
