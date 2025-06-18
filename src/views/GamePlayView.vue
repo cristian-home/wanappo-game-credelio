@@ -56,6 +56,10 @@ const handleBugClick = (bugId: string) => {
   gameStore.spikeBug(bugId)
 }
 
+const handleBugSplatted = (bugId: string) => {
+  gameStore.removeBug(bugId)
+}
+
 const handleBoardReady = (width: number, height: number) => {
   gameAreaWidth = width
   gameAreaHeight = height
@@ -183,6 +187,7 @@ onUnmounted(() => {
         class="relative h-full w-full"
         ref="gameBoardRef"
         @bug-click="handleBugClick"
+        @bug-splatted="handleBugSplatted"
         @board-ready="handleBoardReady"
       />
     </div>
