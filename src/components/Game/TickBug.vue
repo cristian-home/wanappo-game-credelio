@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Bug } from '@/stores/game'
+import { ref, watch } from 'vue'
 
 interface Props {
   bug: Bug
@@ -9,15 +10,40 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<{
   bugClick: [bugId: string]
+  splatted: [bugId: string]
 }>()
 
+const isAnimatingDeath = ref(false)
+const showSplatter = ref(false)
+
 const handleClick = () => {
-  emit('bugClick', props.bug.id)
+  if (props.bug.isAlive) {
+    emit('bugClick', props.bug.id)
+  }
 }
 
 const rotation = computed(() => {
   return (Math.atan2(props.bug.velocityY, props.bug.velocityX) * 180) / Math.PI
 })
+
+// Watch for bug death to trigger splatter animation
+watch(
+  () => props.bug.isAlive,
+  (newValue, oldValue) => {
+    if (oldValue && !newValue) {
+      // Bug just died
+      isAnimatingDeath.value = true
+      showSplatter.value = true
+
+      // After 5 seconds, notify parent that splatter animation is complete
+      setTimeout(() => {
+        emit('splatted', props.bug.id)
+        showSplatter.value = false
+        isAnimatingDeath.value = false
+      }, 5000)
+    }
+  },
+)
 </script>
 
 <script lang="ts">
@@ -28,10 +54,11 @@ export default {
 </script>
 
 <template>
+  <!-- Live bug -->
   <div
-    v-show="bug.isAlive"
+    v-if="bug.isAlive"
     @click="handleClick"
-    class="tick-bug flex h-8 w-8 items-center justify-center text-2xl"
+    class="tick-bug flex h-16 w-16 cursor-pointer items-center justify-center rounded-full text-2xl outline-2 outline-red-500 transition-transform outline-dashed hover:scale-110"
     :style="{
       left: bug.x + 'px',
       top: bug.y + 'px',
@@ -40,4 +67,49 @@ export default {
   >
     🐜
   </div>
+
+  <!-- Splatter animation -->
+  <div
+    v-else-if="showSplatter"
+    class="tick-bug-splatter flex h-16 w-16 items-center justify-center text-3xl"
+    :class="{ 'animate-fade-out': isAnimatingDeath }"
+    :style="{
+      left: bug.x + 'px',
+      top: bug.y + 'px',
+    }"
+  >
+    🫟
+  </div>
 </template>
+
+<style scoped>
+.tick-bug {
+  position: absolute;
+  z-index: 10;
+}
+
+.tick-bug-splatter {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.animate-fade-out {
+  animation: fadeOut 5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  20% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+</style>

@@ -17,12 +17,17 @@ const gameBoardRef = ref<HTMLElement>()
 const emit = defineEmits<{
   bugClick: [bugId: string]
   boardReady: [width: number, height: number]
+  bugSplatted: [bugId: string]
 }>()
 
 const handleBugClick = (bugId: string) => {
   if (gameStore.isPlaying && !gameStore.isPaused) {
     emit('bugClick', bugId)
   }
+}
+
+const handleBugSplatted = (bugId: string) => {
+  emit('bugSplatted', bugId)
 }
 
 const bgImage = computed(() => {
@@ -72,7 +77,13 @@ defineExpose({
     <GameOverlay />
 
     <!-- Bugs -->
-    <TickBug v-for="bug in gameStore.bugs" :key="bug.id" :bug="bug" @bug-click="handleBugClick" />
+    <TickBug
+      v-for="bug in gameStore.bugs"
+      :key="bug.id"
+      :bug="bug"
+      @bug-click="handleBugClick"
+      @splatted="handleBugSplatted"
+    />
     <LogoElanco class="absolute right-4 bottom-4 z-0 w-24" />
   </div>
 </template>

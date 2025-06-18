@@ -40,7 +40,7 @@ export const useGameStore = defineStore(
     // Game configuration
     const maxLevel = ref(4)
     const baseTimeLimit = ref(30) // seconds
-    const baseBugCount = ref(6)
+    const baseBugCount = ref(8)
     const baseSpeed = ref(2) // Increased from 1 to 2 for more noticeable movement
 
     // Computed properties
@@ -102,6 +102,13 @@ export const useGameStore = defineStore(
         if (isLevelComplete.value) {
           completeLevel()
         }
+      }
+    }
+
+    const removeBug = (bugId: string) => {
+      const index = bugs.value.findIndex((b) => b.id === bugId)
+      if (index !== -1) {
+        bugs.value.splice(index, 1)
       }
     }
 
@@ -238,6 +245,7 @@ export const useGameStore = defineStore(
       startLevel,
       generateBugs,
       spikeBug,
+      removeBug,
       completeLevel,
       gameOver,
       pauseGame,
