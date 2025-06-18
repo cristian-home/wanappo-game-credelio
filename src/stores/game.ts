@@ -40,7 +40,7 @@ export const useGameStore = defineStore(
     // Game configuration
     const maxLevel = ref(4)
     const baseTimeLimit = ref(30) // seconds
-    const baseBugCount = ref(5)
+    const baseBugCount = ref(6)
     const baseSpeed = ref(2) // Increased from 1 to 2 for more noticeable movement
 
     // Computed properties
@@ -50,9 +50,7 @@ export const useGameStore = defineStore(
       Math.max(10, baseTimeLimit.value - (currentLevel.value - 1) * 2),
     )
 
-    const levelBugCount = computed(
-      () => baseBugCount.value + Math.floor((currentLevel.value - 1) / 2),
-    )
+    const levelBugCount = computed(() => baseBugCount.value + (currentLevel.value - 1) * 2)
 
     const levelSpeed = computed(() => baseSpeed.value + (currentLevel.value - 1) * 0.8)
 
