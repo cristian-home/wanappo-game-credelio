@@ -60,7 +60,7 @@ export default {
   <div
     v-if="bug.isAlive"
     @click="handleClick"
-    class="tick-bug flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-cover bg-center bg-no-repeat text-2xl transition-transform"
+    class="tick-bug flex h-24 w-24 cursor-none items-center justify-center rounded-full bg-cover bg-center bg-no-repeat text-2xl transition-transform"
     :style="{
       'background-image': `url(${tickImg})`,
       left: bug.x + 'px',
