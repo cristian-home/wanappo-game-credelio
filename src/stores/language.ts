@@ -47,12 +47,22 @@ export const useLanguageStore = defineStore(
       }
     }
 
+    /**
+     * Clear persisted language state
+     */
+    function clearPersistedState() {
+      currentLanguage.value = 'es' // Reset to default
+      localStorage.removeItem('language')
+    }
+
     return {
       currentLanguage,
       supportedLanguages,
+      supportedLanguageCodes,
       setLanguage,
       getBrowserLanguage,
       initializeLanguage,
+      clearPersistedState,
     }
   },
   {

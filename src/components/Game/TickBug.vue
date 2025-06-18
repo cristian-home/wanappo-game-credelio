@@ -31,7 +31,7 @@ export default {
   <div
     v-show="bug.isAlive"
     @click="handleClick"
-    class="tick-bug flex h-8 w-8 items-center justify-center text-2xl"
+    class="tick-bug flex h-16 w-16 items-center justify-center rounded-full text-2xl outline-1 outline-red-600 outline-dashed"
     :style="{
       left: bug.x + 'px',
       top: bug.y + 'px',

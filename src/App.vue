@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLanguageStore } from '@/stores/language'
+import CacheDevTools from '@/components/Dev/CacheDevTools.vue'
 
 const { locale } = useI18n()
 const languageStore = useLanguageStore()
@@ -16,6 +17,7 @@ onMounted(() => {
 
 <template>
   <RouterView />
+  <CacheDevTools />
 </template>
 
 <style scoped lang="css"></style>

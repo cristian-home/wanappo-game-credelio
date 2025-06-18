@@ -24,6 +24,11 @@ jobs:
 
       - name: Build project
         run: npm run build-only
+        env:
+          # Inject version information for cache busting
+          VITE_APP_VERSION: ${{ github.run_number }}
+          VITE_BUILD_HASH: ${{ github.sha }}
+          VITE_BUILD_TIME: ${{ github.event.head_commit.timestamp }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4

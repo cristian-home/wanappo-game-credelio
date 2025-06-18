@@ -144,6 +144,12 @@ export const useGameStore = defineStore(
       isPaused.value = false
     }
 
+    const clearPersistedState = () => {
+      resetGame()
+      // Clear from localStorage
+      localStorage.removeItem('game')
+    }
+
     const updateTimer = () => {
       if (isPlaying.value && !isPaused.value && timeLeft.value > 0) {
         timeLeft.value--
@@ -242,6 +248,7 @@ export const useGameStore = defineStore(
       gameOver,
       pauseGame,
       resetGame,
+      clearPersistedState,
       updateTimer,
       updateBugPositions,
     }
