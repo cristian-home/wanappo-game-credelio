@@ -68,7 +68,7 @@ defineExpose({
 
 <template>
   <div
-    class="outline-yellow relative overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat outline-8 outline-solid"
+    class="outline-yellow relative cursor-none overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat outline-8 outline-solid"
     :style="{
       'background-image': `url(${bgImage})`,
     }"
