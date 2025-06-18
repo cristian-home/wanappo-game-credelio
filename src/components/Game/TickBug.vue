@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Bug } from '@/stores/game'
+import tickImg from '@/assets/img/tick.webp'
+import deadTickImg from '@/assets/img/dead_tick.webp'
 import { ref, watch } from 'vue'
 
 interface Props {
@@ -58,28 +60,27 @@ export default {
   <div
     v-if="bug.isAlive"
     @click="handleClick"
-    class="tick-bug flex h-16 w-16 cursor-pointer items-center justify-center rounded-full text-2xl outline-2 outline-red-500 transition-transform outline-dashed hover:scale-110"
+    class="tick-bug flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-cover bg-center bg-no-repeat text-2xl transition-transform"
     :style="{
+      'background-image': `url(${tickImg})`,
       left: bug.x + 'px',
       top: bug.y + 'px',
-      transform: `rotate(${rotation}deg)`,
+      transform: `rotate(${rotation + 90}deg)`,
     }"
-  >
-    🐜
-  </div>
+  ></div>
 
   <!-- Splatter animation -->
   <div
     v-else-if="showSplatter"
-    class="tick-bug-splatter flex h-16 w-16 items-center justify-center text-3xl"
+    class="tick-bug-splatter flex h-24 w-24 items-center justify-center bg-cover bg-center bg-no-repeat text-3xl"
     :class="{ 'animate-fade-out': isAnimatingDeath }"
     :style="{
+      'background-image': `url(${deadTickImg})`,
+      transform: `rotate(${rotation + 90}deg)`,
       left: bug.x + 'px',
       top: bug.y + 'px',
     }"
-  >
-    🫟
-  </div>
+  ></div>
 </template>
 
 <style scoped>
@@ -101,15 +102,15 @@ export default {
 @keyframes fadeOut {
   0% {
     opacity: 1;
-    transform: scale(1);
+    /* transform: scale(1); */
   }
   20% {
     opacity: 0.9;
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
   }
   100% {
     opacity: 0;
-    transform: scale(0.8);
+    /* transform: scale(0.8); */
   }
 }
 </style>
