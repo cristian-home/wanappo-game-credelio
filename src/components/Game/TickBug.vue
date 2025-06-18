@@ -60,27 +60,39 @@ export default {
   <div
     v-if="bug.isAlive"
     @click="handleClick"
-    class="tick-bug flex h-24 w-24 cursor-none items-center justify-center rounded-full bg-cover bg-center bg-no-repeat text-2xl transition-transform"
+    class="tick-bug flex h-32 w-32 cursor-none items-center justify-center rounded-full text-2xl transition-transform"
     :style="{
-      'background-image': `url(${tickImg})`,
       left: bug.x + 'px',
       top: bug.y + 'px',
       transform: `rotate(${rotation + 90}deg)`,
     }"
-  ></div>
+  >
+    <div
+      class="h-24 w-24 bg-cover bg-center bg-no-repeat"
+      :style="{
+        'background-image': `url(${tickImg})`,
+      }"
+    ></div>
+  </div>
 
   <!-- Splatter animation -->
   <div
     v-else-if="showSplatter"
-    class="tick-bug-splatter flex h-24 w-24 items-center justify-center bg-cover bg-center bg-no-repeat text-3xl"
+    class="tick-bug-splatter flex h-32 w-32 items-center justify-center text-3xl"
     :class="{ 'animate-fade-out': isAnimatingDeath }"
     :style="{
-      'background-image': `url(${deadTickImg})`,
       transform: `rotate(${rotation + 90}deg)`,
       left: bug.x + 'px',
       top: bug.y + 'px',
     }"
-  ></div>
+  >
+    <div
+      class="h-24 w-24 bg-cover bg-center bg-no-repeat"
+      :style="{
+        'background-image': `url(${deadTickImg})`,
+      }"
+    ></div>
+  </div>
 </template>
 
 <style scoped>
