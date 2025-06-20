@@ -2,7 +2,7 @@
 import type { Bug } from '@/stores/game'
 import tickImg from '@/assets/img/tick.webp'
 import deadTickImg from '@/assets/img/dead_tick.webp'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 interface Props {
   bug: Bug
@@ -46,13 +46,6 @@ watch(
     }
   },
 )
-</script>
-
-<script lang="ts">
-import { computed } from 'vue'
-export default {
-  name: 'TickBug',
-}
 </script>
 
 <template>

@@ -5,11 +5,16 @@ import { useGameStore } from '@/stores/game'
 import GameHeader from '@/components/Game/GameHeader.vue'
 import GameBoard from '@/components/Game/GameBoard.vue'
 import GameProgress from '@/components/Game/GameProgress.vue'
+import { useMotion } from '@vueuse/motion'
 
 const router = useRouter()
 const gameStore = useGameStore()
 
 const gameBoardRef = ref<InstanceType<typeof GameBoard>>()
+const gameHeaderRef = ref<HTMLElement>()
+const gameProgressRef = ref<HTMLElement>()
+const gameBoardWrapperRef = ref<HTMLElement>()
+
 let gameTimer: ReturnType<typeof setInterval> | null = null
 let animationFrameId: number | null = null
 let lastMovementUpdate = 0
@@ -72,6 +77,57 @@ const togglePause = () => {
 const goHome = () => {
   gameStore.resetGame()
   router.push('/')
+}
+
+const enterAnimation = () => {
+  useMotion(gameHeaderRef.value, {
+    initial: { opacity: 0, y: -50 },
+    enter: { opacity: 1, y: 0, transition: { duration: 600, delay: 100 } },
+  })
+
+  useMotion(gameProgressRef.value, {
+    initial: { opacity: 0, y: -30 },
+    enter: { opacity: 1, y: 0, transition: { duration: 500, delay: 300 } },
+  })
+
+  useMotion(gameBoardWrapperRef.value, {
+    initial: { opacity: 0, scale: 0.9, y: 0 },
+    enter: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { type: 'spring', duration: 800, delay: 500 },
+    },
+  })
+}
+
+const leaveAnimation = async () => {
+  const headerMotion = useMotion(gameHeaderRef.value, {
+    initial: { opacity: 1, y: 0 },
+    leave: { opacity: 0, y: -50, transition: { duration: 400 } },
+  })
+
+  const progressMotion = useMotion(gameProgressRef.value, {
+    initial: { opacity: 1, y: 0 },
+    leave: { opacity: 0, y: -30, transition: { duration: 400, delay: 100 } },
+  })
+
+  const boardMotion = useMotion(gameBoardWrapperRef.value, {
+    initial: { opacity: 1, scale: 1, y: 0 },
+    leave: {
+      opacity: 0,
+      scale: 0.9,
+      y: 0,
+      transition: { duration: 600, delay: 200 },
+    },
+  })
+
+  // Apply leave animations in parallel
+  await Promise.all([
+    headerMotion.apply('leave'),
+    progressMotion.apply('leave'),
+    boardMotion.apply('leave'),
+  ])
 }
 
 // Watch for game state changes
@@ -152,13 +208,20 @@ onMounted(() => {
     startGameTimer()
     startMovementTimer()
   }
+
+  // Start enter animations
+  enterAnimation()
 })
 
-onBeforeRouteLeave((to, from, next) => {
+onBeforeRouteLeave(async (to, from, next) => {
   // If navigating away while game is active, abort the navigation
   if (gameStore.isPlaying || gameStore.isPaused) {
     next(false) // Prevent navigation
   } else {
+    // Play leave animation before navigating
+    console.log('Leaving GamePlayView, preparing animations...')
+    await leaveAnimation()
+    console.log('Animations completed, navigating to:', to.fullPath)
     next() // Allow navigation if game is not active
   }
 })
@@ -176,13 +239,18 @@ onUnmounted(() => {
   >
     <!-- Game Header -->
     <div class="col-span-3 flex flex-col items-center justify-between gap-6">
-      <GameHeader class="w-full" @toggle-pause="togglePause" @go-home="goHome" />
+      <GameHeader
+        class="w-full"
+        ref="gameHeaderRef"
+        @toggle-pause="togglePause"
+        @go-home="goHome"
+      />
       <!-- Level Progress -->
-      <GameProgress class="w-full" />
+      <GameProgress class="w-full" ref="gameProgressRef" />
     </div>
 
     <!-- Game Area -->
-    <div class="col-span-3 row-span-4 row-start-2 w-full">
+    <div class="col-span-3 row-span-4 row-start-2 w-full" ref="gameBoardWrapperRef">
       <GameBoard
         class="relative h-full w-full"
         ref="gameBoardRef"
