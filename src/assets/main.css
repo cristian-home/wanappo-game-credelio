@@ -98,31 +98,25 @@
   }
 
   .btn-primary:hover {
-    @apply scale-125;
+    @apply scale-110;
   }
 
   .btn-primary:active {
-    @apply scale-110;
+    @apply scale-100;
   }
 
   /* Secondary Button */
   .btn-secondary {
-    background: var(--color-white);
-    color: #006b2f;
-    font-weight: 600;
-    padding: var(--spacing-3) var(--spacing-6);
-    border-radius: var(--border-radius-lg);
-    border: 2px solid #006b2f;
-    font-size: var(--font-size-base);
-    transition: all 0.3s ease;
-    box-shadow: var(--box-shadow-md);
+    @apply bg-yellow outline-orange relative overflow-hidden rounded-full border-none px-8 py-2 text-center font-sans font-semibold text-orange-800 uppercase outline-4 outline-solid;
+    @apply transition-all duration-300 ease-in-out;
   }
 
   .btn-secondary:hover {
-    background: #006b2f;
-    color: var(--color-white);
-    transform: translateY(-1px);
-    box-shadow: var(--box-shadow-lg);
+    @apply scale-115;
+  }
+
+  .btn-secondary:active {
+    @apply scale-100;
   }
 
   /* Game Card */
